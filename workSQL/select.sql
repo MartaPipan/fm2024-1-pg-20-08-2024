@@ -112,5 +112,17 @@ OFFSET 2*7;
 
 SELECT* FROM users  WHERE height>1.85 LIMIT 7;
 
+--Pagination
+SELECT* FROM users LIMIT 7 
+OFFSET 0*7;
+SELECT* FROM users LIMIT 7 
+OFFSET 1*7;
+SELECT* FROM users LIMIT 7 
+OFFSET 2*7;
+SELECT* FROM users LIMIT 7 
+OFFSET 3*7;
+
+
+
 
 
