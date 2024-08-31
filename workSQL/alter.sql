@@ -45,5 +45,50 @@ ADD CONSTRAINT check_created_at CHECK (created_at<= current_timestamp);
 ALTER TABLE tasks
 DROP CONSTRAINT check_created_at;
 
+--set NOT NULL for status
+UPDATE tasks
+SET status='done'
+WHERE status IS NULL;
+--add new constraint
+ALTER TABLE tasks
+ALTER COLUMN status SET NOT NULL;
+--delete NOT NULL in status
+ALTER TABLE tasks
+ALTER COLUMN status DROP NOT NULL;
 
+UPDATE tasks
+SET deadline=current_timestamp
+WHERE deadline IS NULL;
+--set default
+ALTER TABLE tasks
+ALTER COLUMN deadline SET DEFAULT current_timestamp;
+ALTER TABLE tasks
+ALTER COLUMN status SET DEFAULT 'pending';
+INSERT INTO tasks(body, user_id)
+VALUES
+('new body task test',19);
+SELECT* FROM tasks;
+--delete default
+ALTER TABLE tasks
+ALTER COLUMN status DROP DEFAULT;
+--add new INTO
+INSERT INTO tasks(body, user_id,status)
+VALUES
+('new test',16,'processing');
 
+SELECT* FROM tasks;
+
+--update type(change in body varchar for text)
+ALTER TABLE tasks
+ALTER COLUMN body TYPE text;
+
+ALTER TABLE tasks
+ALTER COLUMN body TYPE varchar(48);
+
+ALTER TABLE tasks
+RENAME COLUMN conten TO content;
+
+ALTER TABLE tasks
+RENAME TO user_tasks;
+
+SELECT* FROM user_tasks;
