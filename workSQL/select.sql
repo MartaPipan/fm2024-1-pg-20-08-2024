@@ -137,6 +137,16 @@ SELECT id,concat("lastName", ' ', left("firstName",1)) as "fullName"
 FROM users
 LIMIT 10;
 
+SELECT id,concat("lastName", ' ', left("firstName",1),'.') as "fullName"
+FROM users
+LIMIT 10;
+
+SELECT*
+FROM(
+    SELECT id,concat("lastName", ' ', left("firstName",1),'.') as "fullName"
+FROM users)
+WHERE length("fullName")<8;
+
 
 
 
