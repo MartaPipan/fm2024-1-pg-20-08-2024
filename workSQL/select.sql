@@ -147,7 +147,11 @@ FROM(
 FROM users)
 WHERE length("fullName")<8;
 
+SELECT id, "firstName" FROM users
+WHERE "firstName" LIKE 'A%';
 
+SELECT id, "firstName" FROM users
+WHERE "firstName" ILIKE 'a%';
 
 
 
