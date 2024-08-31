@@ -153,7 +153,14 @@ WHERE "firstName" LIKE 'A%';
 SELECT id, "firstName" FROM users
 WHERE "firstName" ILIKE 'a%';
 
+SELECT id, "firstName" FROM users
+WHERE "firstName" ILIKE '%a';
 
+SELECT id, "firstName" FROM users
+WHERE "firstName" ILIKE '_a%';
+
+SELECT id, "firstName" FROM users
+WHERE "firstName" ILIKE '%sa';
 
 
 
