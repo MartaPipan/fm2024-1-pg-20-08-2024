@@ -122,6 +122,19 @@ OFFSET 2*7;
 SELECT* FROM users LIMIT 7 
 OFFSET 3*7;
 
+--concatination
+SELECT id, "firstName"||' '||"lastName" as "fullName"
+FROM users;
+
+SELECT id, "firstName"||' '||null as "fullName"
+FROM users;
+
+SELECT id,concat("firstName", ' ', null) as "fullName"
+FROM users
+LIMIT 10;
+
+
+
 
 
 
