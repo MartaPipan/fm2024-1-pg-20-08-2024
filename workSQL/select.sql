@@ -147,6 +147,8 @@ FROM(
 FROM users)
 WHERE length("fullName")<8;
 
+
+--search of template
 SELECT id, "firstName" FROM users
 WHERE "firstName" LIKE 'A%';
 
