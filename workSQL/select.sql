@@ -133,6 +133,10 @@ SELECT id,concat("firstName", ' ', null) as "fullName"
 FROM users
 LIMIT 10;
 
+SELECT id,concat("lastName", ' ', left("firstName",1)) as "fullName"
+FROM users
+LIMIT 10;
+
 
 
 
