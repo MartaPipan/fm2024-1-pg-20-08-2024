@@ -49,3 +49,52 @@ SET email=concat(lower("lastName"),'.',lower("firstName"),id,'@gmail.com')
 WHERE "isMale" IS TRUE
 AND "lastName" SIMILAR TO '%(d|e|s)'
 RETURNING id,"isMale", "lastName", email;
+
+INSERT INTO users (
+    "firstName",
+    "lastName",
+    email,
+    "isMale",
+    birthday,
+    height
+  )
+
+    VALUES (
+        'Otto',
+        'Grand',
+        'grand.otto53@gmail.com',
+        true,
+        '2000-01-12',
+        1.9
+      ), (
+        'Anna',
+        'Carolino',
+        'carolino.anna52@gmail.com',
+        false,
+        '1996-11-03',
+        1.72
+      ),(
+        'luis',
+        'Carvalho',
+        'carvalho.luis51@gmail.com',
+        true,
+        '2001-09-22',
+        1.98
+      ) RETURNING*;
+      
+SELECT id, email,"firstName"
+FROM users
+WHERE "firstName" ILIKE 'Anna';
+
+SELECT id, email,"firstName"
+FROM users
+WHERE "firstName" ILIKE 'luis';
+
+DELETE FROM users
+WHERE "firstName" ILIKE 'luis'
+RETURNING *;
+
+DELETE FROM users
+WHERE id=52
+RETURNING *;
+
