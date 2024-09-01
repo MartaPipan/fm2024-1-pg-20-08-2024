@@ -92,3 +92,15 @@ ALTER TABLE tasks
 RENAME TO user_tasks;
 
 SELECT* FROM user_tasks;
+
+--add weight for user
+ALTER TABLE users
+ADD COLUMN weight NUMERIC(4,1);
+
+SELECT* FROM users;
+
+UPDATE users 
+SET weight=(height-1)*100;
+
+ALTER TABLE users 
+ALTER COLUMN weight SET NOT NULL;
