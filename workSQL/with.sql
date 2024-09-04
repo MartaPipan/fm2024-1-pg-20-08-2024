@@ -47,3 +47,41 @@ WHERE orders_summa.summa >
 FROM orders_summa)
 ORDER BY orders_summa.summa;
 
+
+--taskКроки:
+--1.Обчислити кількість замовлень для кожного користувача.
+--2.Обчислити середнє значення кількості замовлень.
+--3.Отримати пошту користувачів, у яких кількість замовлень перевищує середнє значення.
+
+
+-- 1.пошта і кількість замовлень
+
+WITH email_order AS (
+    SELECT u.email, count(o.id) AS order_count
+    FROM users AS u
+    JOIN orders AS o ON u.id=o."userId"
+    GROUP BY u.email)
+
+-- середня кількість замовлень
+SELECT avg (email_order.order_count) AS avg_order_count
+FROM email_order;
+
+-- збираємо до купи запит
+SELECT email_order*
+FROM email_order
+WHERE email_order.order_count > (SELECT avg (email_order.order_count) AS avg_order_count
+FROM email_order);
+
+-- оптимізуємо з with
+WITH email_order AS (
+    SELECT u.email, count(o.id) AS order_count
+    FROM users AS u
+    JOIN orders AS o ON u.id=o."userId"
+    GROUP BY u.email
+    )
+SELECT email_order.*
+FROM email_order
+WHERE email_order.order_count > 
+(SELECT avg (email_order.order_count)
+FROM email_order)
+ORDER BY email_order.order_count;
