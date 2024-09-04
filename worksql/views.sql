@@ -22,8 +22,7 @@ SELECT *
 FROM email_sezon
 WHERE season='winter';
 
-SELECT season, count(*)
-FROM email_sezon
+SELECT season, count(*) FROM email_sezon
 GROUP BY season;
 
 DELETE FROM users WHERE id=57 RETURNING *;
