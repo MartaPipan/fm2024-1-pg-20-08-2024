@@ -1,4 +1,5 @@
 -- Спочатку видаляємо таблиці, якщо вони існують
+DROP TABLE IF EXISTS receivers;
 DROP TABLE IF EXISTS products_in_shipment;
 DROP TABLE IF EXISTS shipments;
 DROP TABLE IF EXISTS products_in_request;
@@ -67,8 +68,11 @@ CREATE TABLE products_in_request (
 CREATE TABLE shipments (
     shipment_id SERIAL PRIMARY KEY,    -- Унікальний ідентифікатор відвантаження
     request_id INT NOT NULL,           -- Посилання на замовлення
-    shipment_date TIMESTAMP,           -- Дата відвантаження
-    FOREIGN KEY (request_id) REFERENCES requests(request_id) ON DELETE CASCADE
+    shipment_date TIMESTAMP NOT NULL,  -- Дата відвантаження
+    receiver_id INT NOT NULL,          -- Посилання на отримувача
+    received_date TIMESTAMP NOT NULL,  -- Дата отримання
+    FOREIGN KEY (request_id) REFERENCES requests(request_id) ON DELETE CASCADE,
+    FOREIGN KEY (receiver_id) REFERENCES receivers(receiver_id) ON DELETE CASCADE
 );
 
 -- Таблиця products_in_shipment
@@ -79,4 +83,14 @@ CREATE TABLE products_in_shipment (
     PRIMARY KEY (shipment_id, product_id),  -- Комбінований первинний ключ
     FOREIGN KEY (shipment_id) REFERENCES shipments(shipment_id) ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE
+);
+
+-- Таблиця receivers
+CREATE TABLE receivers (
+    receiver_id SERIAL PRIMARY KEY,      -- Ідентифікатор отримувача
+    receiver_name VARCHAR(255) NOT NULL CHECK (receiver_name != ''), -- Ім'я отримувача
+    receiver_type VARCHAR(50) NOT NULL CHECK (receiver_type IN ('customer', 'individual', 'company')), -- Тип отримувача: замовник, індивідуальна особа або компанія
+    receiver_address VARCHAR(255) NOT NULL CHECK (receiver_address != ''), -- Адреса отримувача
+    receiver_phone VARCHAR(20) NOT NULL CHECK (receiver_phone != ''),      -- Телефон отримувача
+    CONSTRAINT unique_receiver_name_phone UNIQUE (receiver_name, receiver_phone) -- Унікальність поєднання імені та телефону
 );
