@@ -1,13 +1,14 @@
--- Спочатку видаляємо таблиці, якщо вони існують
-DROP TABLE IF EXISTS receivers;
+-- Видалення всіх таблиць у правильному порядку 
 DROP TABLE IF EXISTS products_in_shipment;
 DROP TABLE IF EXISTS shipments;
 DROP TABLE IF EXISTS products_in_request;
 DROP TABLE IF EXISTS requests;
 DROP TABLE IF EXISTS products_in_contract;
 DROP TABLE IF EXISTS contracts;
+DROP TABLE IF EXISTS receivers;
 DROP TABLE IF EXISTS customers;
 DROP TABLE IF EXISTS products;
+
 
 -- Таблиця products
 CREATE TABLE products (
