@@ -46,6 +46,17 @@ CREATE TABLE requests (
     FOREIGN KEY (contract_id) REFERENCES contracts(contract_id) ON DELETE CASCADE
 );
 
+-- Таблиця receivers: інформація про отримувачів
+CREATE TABLE receivers (
+    receiver_id SERIAL PRIMARY KEY,
+    receiver_name VARCHAR(255) NOT NULL CHECK (receiver_name != ''),
+    receiver_type VARCHAR(50) NOT NULL CHECK (receiver_type IN ('customer', 'individual', 'company')),
+    receiver_address VARCHAR(255) NOT NULL CHECK (receiver_address != ''),
+    receiver_phone VARCHAR(20) NOT NULL CHECK (receiver_phone != ''),
+    CONSTRAINT unique_receiver_name_phone UNIQUE (receiver_name, receiver_phone) 
+);
+
+
 -- Таблиця shipments: фактичні відвантаження товарів
 CREATE TABLE shipments (
     shipment_id SERIAL PRIMARY KEY,
@@ -66,12 +77,3 @@ CREATE TABLE products_in_shipments (
     FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE
 );
 
--- Таблиця receivers: інформація про отримувачів
-CREATE TABLE receivers (
-    receiver_id SERIAL PRIMARY KEY,
-    receiver_name VARCHAR(255) NOT NULL CHECK (receiver_name != ''),
-    receiver_type VARCHAR(50) NOT NULL CHECK (receiver_type IN ('customer', 'individual', 'company')),
-    receiver_address VARCHAR(255) NOT NULL CHECK (receiver_address != ''),
-    receiver_phone VARCHAR(20) NOT NULL CHECK (receiver_phone != ''),
-    CONSTRAINT unique_receiver_name_phone UNIQUE (receiver_name, receiver_phone) 
-);
